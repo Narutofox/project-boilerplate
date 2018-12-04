@@ -11,6 +11,7 @@ class App extends React.Component {
             // Define all your routes here
           }
           <Route exact path="/" component={Home} />
+          <Route exact path="/Cart" component={Cart}/>
           <Route component={NotFound} />
         </Switch>
       </div>

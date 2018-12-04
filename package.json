@@ -9,7 +9,7 @@
     "watch": "webpack --watch -d",
     "dev": "webpack-dev-server"
   },
-  "author": "David Abram",
+  "author": "Ivan Cicek",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -49,6 +49,7 @@
     "react-router-hash-link": "^1.2.0",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "storybook-project": "github:Narutofox/storybook-boilerplate"
   }
 }
