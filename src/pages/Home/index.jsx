@@ -44,7 +44,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const cards = <BeerCards beers={beers} toggleFavouriteBeer={this.toggleFavouriteBeer} addBeerToCart={this.addBeerToCart} favouriteBeers={this.props.favouriteBeers} />;
+    const cards = (<BeerCards beers={beers}
+      toggleFavouriteBeer={this.toggleFavouriteBeer}
+      addBeerToCart={this.addBeerToCart}
+      favouriteBeers={this.props.favouriteBeers}
+      setPopupBeer={this.setPopupBeer}
+    />);
     const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
