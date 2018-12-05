@@ -32,14 +32,16 @@
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.0.4",
+    "redux-devtools-extension": "^2.13.2",
     "style-loader": "^0.20.2",
     "webpack": "^4.3.0",
     "webpack-cli": "^2.0.13",
-    "webpack-dev-server": "^3.1.0"
+    "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
     "autobind-decorator": "^2.1.0",
     "babel-polyfill": "^6.26.0",
+    "ivanciceksstorybook": "github:Narutofox/storybook-boilerplate",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^4.0.0",
@@ -48,8 +50,8 @@
     "react-router-dom": "^4.2.2",
     "react-router-hash-link": "^1.2.0",
     "react-router-redux": "^4.0.8",
+    "react-toastify": "^4.1.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "storybook-project": "github:Narutofox/storybook-boilerplate"
+    "redux-thunk": "^2.2.0"
   }
 }

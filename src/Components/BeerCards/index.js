@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'storybook-project/dist';
+import { Card } from 'ivanciceksstorybook/dist';
 
 export default class BeerCards extends React.Component {
   render() {

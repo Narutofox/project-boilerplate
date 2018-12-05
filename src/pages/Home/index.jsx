@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Header, Main, Button, Navigation } from 'storybook-project/dist';
+import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
 import style from './index.css';
 import beers from '../../../assets/beers.js';
 import { connect } from 'react-redux';
 import { BeerCards } from '../../Components/BeerCards/index.js';
 import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/methods.js';
+import logo from '../../../assets/duff.png';
 
 class Home extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class Home extends React.Component {
     const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
-        <Header title="Duff Beers" />
+        <Header><div>Duff Beers</div> <div><img src={logo} alt="Duff Beers" /></div></Header>
         <Navigation links={
                   [
                       {
@@ -75,6 +76,7 @@ class Home extends React.Component {
           </div>
           {cards}
         </Main>
+        <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
       </div>
     );
 
