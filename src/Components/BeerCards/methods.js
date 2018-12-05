@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+
 
 export const addFavouriteBeer = value => ({
   type: 'ADD_FAVOURITE_BEER',
@@ -29,8 +29,3 @@ export const changeBeerInCart = (beerId, amount) => ({
   beerId,
   amount
 });
-
-
-
-
-
