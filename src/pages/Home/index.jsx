@@ -1,27 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
-import style from './index.css';
-import beers from '../../../assets/beers.js';
 import { connect } from 'react-redux';
-import { BeerCards } from '../../Components/BeerCards/index.js';
-import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/methods.js';
+import PropTypes from 'prop-types';
+import Header from 'ivanciceksstorybook/dist';
+import Main from 'ivanciceksstorybook/dist';
+import Button from 'ivanciceksstorybook/dist';
+import Navigation from 'ivanciceksstorybook/dist';
+import Footer from 'ivanciceksstorybook/dist';
+import style from './index.css';
+import beers from '../../../assets/beers';
+import BeerCards from '../../Components/BeerCards/index';
+import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
 import logo from '../../../assets/duff.png';
+import ErrorBoundary from '../../Components/ErrorBoundary/ErrorBoundary';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.setPopupBeer = this.setPopupBeer.bind(this);
-    this.removePopupBeer = this.removePopupBeer.bind(this);
+    this.showModalBeer = this.showModalBeer.bind(this);
+    this.removeModalBeer = this.removeModalBeer.bind(this);
     this.addBeerToCart = this.addBeerToCart.bind(this);
     this.changeShowToNewMode = this.changeShowToNewMode.bind(this);
     this.toggleFavouriteBeer = this.toggleFavouriteBeer.bind(this);
     this.addBeerToCart = this.addBeerToCart.bind(this);
   }
 
-  setPopupBeer(beer) {
-    this.props.showPopupBeer(beer);
+  showModalBeer(beer) {
+    this.props.showModalBeer(beer);
   }
 
   toggleFavouriteBeer(beerId) {
@@ -32,8 +36,8 @@ class Home extends React.Component {
     }
   }
 
-  removePopupBeer() {
-    this.props.removePopupBeer();
+  removeModalBeer() {
+    this.props.removeModalBeer();
   }
 
   addBeerToCart(beerId) {
@@ -54,8 +58,11 @@ class Home extends React.Component {
     const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
-        <Header><div>Duff Beers</div> <div><img src={logo} alt="Duff Beers" /></div></Header>
-        <Navigation links={
+
+        <ErrorBoundary>
+          <Header><div>Duff Beers</div> <div><img src={logo} alt="Duff Beers" /></div></Header>
+        </ErrorBoundary>
+        <ErrorBoundary><Navigation links={
                   [
                       {
                           link: 'Cart',
@@ -64,18 +71,21 @@ class Home extends React.Component {
                   ]
               }
         />
-        <Main>
-          <div>
-            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
-              {`Show all beers (${beers.length})`}
-            </Button>
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Main>
+            <div>
+              <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
+                {`Show all beers (${beers.length})`}
+              </Button>
 
-            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
-              {`Show just Favourites beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
-            </Button>
-          </div>
-          {cards}
-        </Main>
+              <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
+                {`Show just Favourites beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
+              </Button>
+            </div>
+            {cards}
+          </Main>
+        </ErrorBoundary>
         <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
       </div>
     );
@@ -85,9 +95,9 @@ class Home extends React.Component {
 }
 
 Home.defaultProps = {
-  showPopupBeer: undefined,
+  showModalBeer: undefined,
   removeFavouriteBeer: undefined,
-  removePopupBeer: undefined,
+  removeModalBeer: undefined,
   changeBeerInCart: undefined,
   changeShowMode: undefined,
   addFavouriteBeer: undefined,
@@ -96,9 +106,9 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  showPopupBeer: PropTypes.func,
+  showModalBeer: PropTypes.func,
   removeFavouriteBeer: PropTypes.func,
-  removePopupBeer: PropTypes.func,
+  removeModalBeer: PropTypes.func,
   changeBeerInCart: PropTypes.func,
   changeShowMode: PropTypes.func,
   addFavouriteBeer: PropTypes.func,
@@ -108,17 +118,17 @@ Home.propTypes = {
 
 
 const mapStateToProps = state => ({
-  favouriteBeers: state.main.favouriteBeers,
-  popupBeer: state.main.popupBeer,
-  beerInCart: state.main.beerInCart,
-  showMode: state.main.showMode
+  favouriteBeers: state.beer.favouriteBeers,
+  popupBeer: state.beer.popupBeer,
+  beerInCart: state.beer.beerInCart,
+  showMode: state.beer.showMode
 });
 
 const mapDispatchProps = dispatch => ({
   addFavouriteBeer: beerId => dispatch(addFavouriteBeer(beerId)),
   removeFavouriteBeer: beerId => dispatch(removeFavouriteBeer(beerId)),
-  showPopupBeer: beer => dispatch(showPopupBeer(beer)),
-  removePopupBeer: () => dispatch(removePopupBeer()),
+  showPopupBeer: beer => dispatch(showModalBeer(beer)),
+  removePopupBeer: () => dispatch(removeModalBeer()),
   changeBeerInCart: (beerId, amount) => dispatch(changeBeerInCart(beerId, amount)),
   changeShowMode: mode => dispatch(changeShowMode(mode))
 });

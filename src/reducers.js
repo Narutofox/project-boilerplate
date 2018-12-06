@@ -1,10 +1,9 @@
 /* eslint import/no-named-default: off */
 
 import { combineReducers } from 'redux';
-
-const dummyReducer = (store = {}) => store;
+import { beerReducer } from './pages/Home/reducer';
 
 export const reducers = combineReducers({
-  dummy: dummyReducer,
+  beer: beerReducer
   // place other reducers here,
 });

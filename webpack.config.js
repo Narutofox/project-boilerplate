@@ -11,6 +11,7 @@ const extractPlugin = new ExtractTextPlugin({
 const destinationFolder = 'dist';
 
 module.exports = {
+  mode:"development",
   entry: {
     app: './src/app.jsx',
   },
@@ -45,6 +46,7 @@ module.exports = {
   module: {
     rules: [
       {
+        
         test: /\.js|\.jsx$/,
         include: [/src/, /assets/],
         exclude: /node_modules/,
