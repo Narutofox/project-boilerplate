@@ -13,7 +13,7 @@ export default class BeerCards extends React.Component {
           name={beer.name}
           tagline={beer.tagline}
           onInfoClick={() => this.props.setPopupBeer(beer)}
-          onStarClick={() => { this.props.toggleFavouriteBeer(beer.id); }}
+          onStarClick={() => { this.props.markBeerAsFavorite(beer.id); }}
           onPlusClick={() => this.props.addBeerToCart(beer.id)}
           isFavourite={this.props.favouriteBeers.includes(beer.id) === true ? 'true' : 'false'}
         />))
@@ -24,7 +24,7 @@ export default class BeerCards extends React.Component {
 BeerCards.defaultProps = {
   beers: [],
   favouriteBeers: [],
-  toggleFavouriteBeer: undefined,
+  markBeerAsFavorite: undefined,
   addBeerToCart: undefined,
   setPopupBeer: undefined
 };
@@ -32,7 +32,7 @@ BeerCards.defaultProps = {
 BeerCards.propTypes = {
   beers: PropTypes.instanceOf(Array),
   favouriteBeers: PropTypes.instanceOf(Array),
-  toggleFavouriteBeer: PropTypes.func,
+  markBeerAsFavorite: PropTypes.func,
   addBeerToCart: PropTypes.func,
   setPopupBeer: PropTypes.func
 };

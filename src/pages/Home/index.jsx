@@ -1,17 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from 'ivanciceksstorybook/dist';
-import Main from 'ivanciceksstorybook/dist';
-import Button from 'ivanciceksstorybook/dist';
-import Navigation from 'ivanciceksstorybook/dist';
-import Footer from 'ivanciceksstorybook/dist';
+import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
 import style from './index.css';
 import beers from '../../../assets/beers';
 import BeerCards from '../../Components/BeerCards/index';
 import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
 import logo from '../../../assets/duff.png';
-import ErrorBoundary from '../../Components/ErrorBoundary/ErrorBoundary';
 
 class Home extends React.Component {
   constructor(props) {
@@ -20,7 +15,7 @@ class Home extends React.Component {
     this.removeModalBeer = this.removeModalBeer.bind(this);
     this.addBeerToCart = this.addBeerToCart.bind(this);
     this.changeShowToNewMode = this.changeShowToNewMode.bind(this);
-    this.toggleFavouriteBeer = this.toggleFavouriteBeer.bind(this);
+    this.markBeerAsFavorite = this.markBeerAsFavorite.bind(this);
     this.addBeerToCart = this.addBeerToCart.bind(this);
   }
 
@@ -28,7 +23,7 @@ class Home extends React.Component {
     this.props.showModalBeer(beer);
   }
 
-  toggleFavouriteBeer(beerId) {
+  markBeerAsFavorite(beerId) {
     if (this.props.favouriteBeers.includes(beerId)) {
       this.props.removeFavouriteBeer(beerId);
     } else {
@@ -50,7 +45,7 @@ class Home extends React.Component {
 
   render() {
     const cards = (<BeerCards beers={beers}
-      toggleFavouriteBeer={this.toggleFavouriteBeer}
+      markBeerAsFavorite={this.toggleFavouriteBeer}
       addBeerToCart={this.addBeerToCart}
       favouriteBeers={this.props.favouriteBeers}
       setPopupBeer={this.setPopupBeer}
@@ -58,34 +53,29 @@ class Home extends React.Component {
     const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
-
-        <ErrorBoundary>
-          <Header><div>Duff Beers</div> <div><img src={logo} alt="Duff Beers" /></div></Header>
-        </ErrorBoundary>
-        <ErrorBoundary><Navigation links={
+        <Header text="Duff Bears" imgUrl={logo} />
+        <Navigation links={
                   [
                       {
-                          link: 'Cart',
-                          title: `My Cart (${beerCount})`
+                        path: 'Cart',
+                        active: true,
+                        content: `My Cart (${beerCount})`
                       }
                   ]
               }
         />
-        </ErrorBoundary>
-        <ErrorBoundary>
-          <Main>
-            <div>
-              <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
-                {`Show all beers (${beers.length})`}
-              </Button>
+        <Main>
+          <div>
+            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
+              {`All beers (${beers.length})`}
+            </Button>
 
-              <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
-                {`Show just Favourites beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
-              </Button>
-            </div>
-            {cards}
-          </Main>
-        </ErrorBoundary>
+            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
+              {`Favourites beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
+            </Button>
+          </div>
+          {cards}
+        </Main>
         <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
       </div>
     );
