@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
+import { Header, Main, Button, Footer } from 'ivanciceksstorybook/dist';
 import style from './index.css';
 import beers from '../../../assets/beers';
-import BeerCards from '../../Components/beerCards';
-import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
+import BeerCards from '../../components/beerCards';
+import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../components/BeerCards/actions';
 import logo from '../../../assets/duff.png';
+import BeerNavigation from '../../components/beerNavigation';
 
 class Home extends React.Component {
   constructor(props) {
@@ -50,29 +51,15 @@ class Home extends React.Component {
       favouriteBeers={this.props.favouriteBeers}
       setPopupBeer={this.setPopupBeer}
     />);
-    const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
+    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
         <Header text="Duff Bears" imgUrl={logo} />
-        <Navigation links={
-                  [
-                      {
-                        path: 'Cart',
-                        active: true,
-                        content: `My Cart (${beerCount})`
-                      }
-                  ]
-              }
-        />
+        <BeerNavigation beersInCart={beersInCart} favouriteBeers={this.props.favouriteBeers} />
         <Main>
           <div>
-            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
-              {`All beers (${beers.length})`}
-            </Button>
-
-            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
-              {`Favourite beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
-            </Button>
+            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button} text={`All beers (${beers.length})`} />
+            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button} text={`Favourite beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`} />
           </div>
           {cards}
         </Main>
