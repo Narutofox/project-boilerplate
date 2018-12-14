@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './index.css';
 import beers from '../../../assets/beers';
-import BeerCards from '../../Components/BeerCards/index';
-import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
+import BeerCards from '../../Components/beerCards';
+import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/beerCards/actions';
 import logo from '../../../assets/duff.png';
 
 class Home extends React.Component {

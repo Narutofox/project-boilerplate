@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
 import style from './index.css';
 import beers from '../../../assets/beers';
-import BeerCards from '../../Components/BeerCards/index';
+import BeerCards from '../../Components/beerCards';
 import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
 import logo from '../../../assets/duff.png';
 
