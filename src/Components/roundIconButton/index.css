@@ -1,0 +1,31 @@
+.roundIconButton {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50%;
+    background-color: transparent;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.roundIconButton img{
+    max-width: 35px;
+    max-height: 35px;
+}
+
+.roundIconButton:disabled {
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+  
+  .roundIconButton:hover {
+    box-shadow: 0 9px #999;
+  }
+  
+  .roundIconButton:enabled:active {
+    background-color: blueviolet;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }

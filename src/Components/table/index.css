@@ -1,0 +1,20 @@
+
+.table1 {
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+.table1 th,
+.table1 td {
+  border: 1px solid #ddd !important;
+}
+
+.table1 tr,
+.table1 th,
+.table1 td {
+    height:unset !important;
+  }
+
+.panel > .table-responsive > .table1 > tfoot > tr:last-child > th {
+    border-bottom: 0;
+  }

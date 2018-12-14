@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'ivanciceksstorybook/dist';
-import close from '../../../assets/cancel-circle.png';
+import Button from '../button/index';
+import RoundIconButton from '../roundIconButton';
+import close from '../../content/icons/PNG/cancel-circle.png';
 import style from './index.css';
 
 
-class BeerModal extends React.Component {
+export default class BeerModal extends React.Component {
   render() {
     // Render nothing if the "show" prop is false
     if (!this.props.show) {
@@ -20,30 +21,25 @@ class BeerModal extends React.Component {
               <span>{this.props.beerName}</span>
             </div>
             <div className={style.modalHeaderRight}>
-              <Button onClick={this.props.onClose}>
-                <img imgUrl={close} alt="closeImage" className={style.closeImage} />
-              </Button>
+              <RoundIconButton imageLink={close} onClick={this.props.onClose} ></RoundIconButton>
             </div>
           </div>
           <div className={style.modalBody}>
             <div className={style.modalBodyLeft}>
-              <img imgUrl={this.props.imgUrl} alt="beerImage" />
+              <img src={this.props.imgUrl} alt="beerImage" />
             </div>
             <div className={style.modalBodyRight}>
-              <span >
+              <span>
                 {this.props.beerDescription}
               </span>
             </div>
           </div>
           <div className={style.modalFooter}>
-            <Button onClick={this.props.onClose}>
-              Close
+            <Button onClick={this.props.onClose} text="Close" >
             </Button>
-            <Button onClick={() => { this.props.markBeerAsFavorite(this.props.beerId); }}>
-              Mark beer as favorite
+            <Button onClick={() => { this.props.markBeerAsFavorite(this.props.beerId); }} text="Mark beer as favorite">
             </Button>
-            <Button onClick={() => this.props.addBeerToCart(this.props.beerId)}>
-              Add beer To Cart
+            <Button onClick={() => this.props.addBeerToCart(this.props.beerId)} text="Add beer To Cart">
             </Button>
           </div>
         </div>
@@ -70,5 +66,3 @@ BeerModal.propTypes = {
   addBeerToCart: PropTypes.func.isRequired,
   beerId: PropTypes.number
 };
-
-export default BeerModal;

@@ -1,0 +1,33 @@
+.hyperlinkButton {
+    padding: 15px 25px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  
+  .hyperlinkButton:disabled {
+    background-color: #7a7a7a !important;
+    cursor: not-allowed;
+    box-shadow: 0 9px #3f3f3f;
+  }
+  
+  .hyperlinkButton:hover {
+    background-color: #3e8e41
+  }
+  
+  .hyperlinkButton:enabled:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  a{
+      text-decoration-line: none;
+      color: white;
+  }

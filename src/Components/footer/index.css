@@ -1,0 +1,16 @@
+.footer{
+    margin-top: 2rem;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.footer p{
+  height: 1rem;
+}
+
+.footer a{
+  margin: 0.5em;
+}
+
+  
