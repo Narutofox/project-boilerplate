@@ -15,7 +15,7 @@ export default class BeerCards extends React.Component {
           onInfoClick={() => this.props.setPopupBeer(beer)}
           onStarClick={() => { this.props.markBeerAsFavorite(beer.id); }}
           onPlusClick={() => this.props.addBeerToCart(beer.id)}
-          isFavourite={this.props.favouriteBeers.includes(beer.id) === true ? 'true' : 'false'}
+          isFavourite={this.props.favouriteBeers.includes(beer.id) === true}
         />))
     );
   }

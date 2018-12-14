@@ -50,33 +50,11 @@ class Home extends React.Component {
       favouriteBeers={this.props.favouriteBeers}
       setPopupBeer={this.setPopupBeer}
     />);
-    const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
+    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
-        <Header text="Duff Bears" imgUrl={logo} />
-        <Navigation links={
-                  [
-                      {
-                        path: 'Cart',
-                        active: true,
-                        content: `My Cart (${beerCount})`
-                      }
-                  ]
-              }
-        />
-        <Main>
-          <div>
-            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
-              {`All beers (${beers.length})`}
-            </Button>
-
-            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
-              {`Favourites beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
-            </Button>
-          </div>
-          {cards}
-        </Main>
-        <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
+        { cards }
+        <div>&copy; Ivan Čiček - 2018 BeersInCart: { beersInCart }</div>
       </div>
     );
 

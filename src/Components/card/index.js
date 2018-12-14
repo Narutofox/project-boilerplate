@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './index.css';
-import info from '../../content/icons/PNG/info.png';
-import plus from '../../content/icons/PNG/plus.png';
-import starFull from '../../content/icons/PNG/star-full.png';
-import starEmpty from '../../content/icons/PNG/star-empty.png';
+import info from '../../../assets/icons/PNG/info.png';
+import plus from '../../../assets/icons/PNG/plus.png';
+import starFull from '../../../assets/icons/PNG/star-full.png';
+import starEmpty from '../../../assets/icons/PNG/star-empty.png';
 import RoundIconButton from '../roundIconButton';
 
 export default class Card extends React.Component {
@@ -18,22 +18,22 @@ export default class Card extends React.Component {
 
   render() {
     return (
-          <div className={styles.card}>
-              <div className={styles.cardActions}>
-                <div className={styles.cardActionsLeft}>
-                  <RoundIconButton imageLink={this.getFavouriteIcon(this.props.isFavourite)} onClick={this.props.onStarClick}/>
-                </div>
-                <div className={styles.cardActionsRight}>
-                      <RoundIconButton imageLink={info} onClick={this.props.onInfoClick}/>
-                      <RoundIconButton imageLink={plus} onClick={this.props.onPlusClick}/>
-                </div>
-              </div>
-              <img src={this.props.imgUrl} className={styles.cardImage}/>
-              <div className={styles.cardDescription}>
-                  <h4 className={styles.cardTitle}>{this.props.name}</h4>
-                  <p className={styles.cardTagline}>{this.props.tagline}</p>
-              </div>
+      <div className={styles.card}>
+        <div className={styles.cardActions}>
+          <div className={styles.cardActionsLeft}>
+            <RoundIconButton imageLink={this.getFavouriteIcon(this.props.isFavourite)} onClick={this.props.onStarClick} />
           </div>
+          <div className={styles.cardActionsRight}>
+            <RoundIconButton imageLink={info} onClick={this.props.onInfoClick} />
+            <RoundIconButton imageLink={plus} onClick={this.props.onPlusClick} />
+          </div>
+        </div>
+        <img src={this.props.imgUrl} className={styles.cardImage} alt={this.props.name} />
+        <div className={styles.cardDescription}>
+          <h4 className={styles.cardTitle}>{this.props.name}</h4>
+          <p className={styles.cardTagline}>{this.props.tagline}</p>
+        </div>
+      </div>
     );
   }
 }
