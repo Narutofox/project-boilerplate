@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
-import style from './index.css';
+import styles from './index.css';
 import beers from '../../../assets/beers';
 import BeerCards from '../../Components/BeerCards/index';
 import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
