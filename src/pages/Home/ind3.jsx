@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Main, Button, Navigation, Footer } from 'ivanciceksstorybook/dist';
-import style from './index.css';
+import styles from './index.css';
 import beers from '../../../assets/beers';
 import BeerCards from '../../Components/beerCards';
-import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/BeerCards/actions';
+import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../Components/beerCards/actions';
 import logo from '../../../assets/duff.png';
 
 class Home extends React.Component {
@@ -50,33 +49,11 @@ class Home extends React.Component {
       favouriteBeers={this.props.favouriteBeers}
       setPopupBeer={this.setPopupBeer}
     />);
-    const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
+    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
-        <Header text="Duff Bears" imgUrl={logo} />
-        <Navigation links={
-                  [
-                      {
-                        path: 'Cart',
-                        active: true,
-                        content: `My Cart (${beerCount})`
-                      }
-                  ]
-              }
-        />
-        <Main>
-          <div>
-            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
-              {`All beers (${beers.length})`}
-            </Button>
-
-            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
-              {`Favourite beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`}
-            </Button>
-          </div>
-          {cards}
-        </Main>
-        <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
+        { cards }
+        <div>&copy; Ivan Čiček - 2018 BeersInCart: { beersInCart }</div>
       </div>
     );
 
