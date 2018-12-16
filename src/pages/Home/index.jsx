@@ -5,7 +5,7 @@ import { Header, Main, Button, Footer } from 'ivanciceksstorybook/dist';
 import style from './index.css';
 import beers from '../../../assets/beers';
 import BeerCards from '../../components/beerCards';
-import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../components/BeerCards/actions';
+import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../components/beerCards/actions';
 import logo from '../../../assets/duff.png';
 import BeerNavigation from '../../components/beerNavigation';
 
