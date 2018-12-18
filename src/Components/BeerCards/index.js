@@ -12,9 +12,9 @@ export default class BeerCards extends React.Component {
           imgUrl={beer.image_url}
           name={beer.name}
           tagline={beer.tagline}
-          onInfoClick={() => this.props.setPopupBeer(beer)}
-          onStarClick={() => { this.props.markBeerAsFavorite(beer.id); }}
-          onPlusClick={() => this.props.addBeerToCart(beer.id)}
+          onInfoClick={() => this.props.showModalBeer(beer)}
+          onStarClick={() => { this.props.addOrRemoveBeerFavorite(beer.id); }}
+          onPlusClick={() => { this.props.addBeerToCart(beer.id); }}
           isFavourite={this.props.favouriteBeers.includes(beer.id) === true}
         />))
     );
@@ -24,16 +24,16 @@ export default class BeerCards extends React.Component {
 BeerCards.defaultProps = {
   beers: [],
   favouriteBeers: [],
-  markBeerAsFavorite: undefined,
+  addOrRemoveBeerFavorite: undefined,
   addBeerToCart: undefined,
-  setPopupBeer: undefined
+  showModalBeer: undefined
 };
 
 BeerCards.propTypes = {
   beers: PropTypes.instanceOf(Array),
   favouriteBeers: PropTypes.instanceOf(Array),
-  markBeerAsFavorite: PropTypes.func,
+  addOrRemoveBeerFavorite: PropTypes.func,
   addBeerToCart: PropTypes.func,
-  setPopupBeer: PropTypes.func
+  showModalBeer: PropTypes.func
 };
 

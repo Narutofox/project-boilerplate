@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Main, Button, Footer } from 'ivanciceksstorybook/dist';
+import { Header, Main, Footer } from 'ivanciceksstorybook/dist';
 import style from './index.css';
 import beers from '../../../assets/beers';
 import BeerCards from '../../components/beerCards';
-import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, changeBeerInCart, changeShowMode } from '../../components/beerCards/actions';
+import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, addBeerToCart } from '../../components/beerCards/actions';
 import logo from '../../../assets/duff.png';
 import BeerNavigation from '../../components/beerNavigation';
 
@@ -15,9 +15,7 @@ class Home extends React.Component {
     this.showModalBeer = this.showModalBeer.bind(this);
     this.removeModalBeer = this.removeModalBeer.bind(this);
     this.addBeerToCart = this.addBeerToCart.bind(this);
-    this.changeShowToNewMode = this.changeShowToNewMode.bind(this);
-    this.markBeerAsFavorite = this.markBeerAsFavorite.bind(this);
-    this.addBeerToCart = this.addBeerToCart.bind(this);
+    this.addOrRemoveBeerFavorite = this.markBeerAsFavorite.bind(this);
   }
 
   showModalBeer(beer) {
@@ -37,30 +35,22 @@ class Home extends React.Component {
   }
 
   addBeerToCart(beerId) {
-    this.props.changeBeerInCart(beerId, 1);
-  }
-
-  changeShowToNewMode(mode) {
-    this.props.changeShowMode(mode);
+    this.props.addBeerToCart(beerId, 1);
   }
 
   render() {
     const cards = (<BeerCards beers={beers}
-      markBeerAsFavorite={this.toggleFavouriteBeer}
+      addOrRemoveBeerFavorite={this.addOrRemoveBeerFavorite}
       addBeerToCart={this.addBeerToCart}
       favouriteBeers={this.props.favouriteBeers}
-      setPopupBeer={this.setPopupBeer}
+      setPopupBeer={this.showModalBeer}
     />);
     const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
       <div>
         <Header text="Duff Bears" imgUrl={logo} />
-        <BeerNavigation beersInCart={beersInCart} favouriteBeers={this.props.favouriteBeers} />
+        <BeerNavigation beersInTotal={beers.length} beersInCart={beersInCart} favouriteBeers={this.props.favouriteBeers} />
         <Main>
-          <div>
-            <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button} text={`All beers (${beers.length})`} />
-            <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button} text={`Favourite beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`} />
-          </div>
           {cards}
         </Main>
         <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
@@ -75,8 +65,7 @@ Home.defaultProps = {
   showModalBeer: undefined,
   removeFavouriteBeer: undefined,
   removeModalBeer: undefined,
-  changeBeerInCart: undefined,
-  changeShowMode: undefined,
+  addBeerToCart: undefined,
   addFavouriteBeer: undefined,
   favouriteBeers: [],
   beerInCart: []
@@ -86,8 +75,7 @@ Home.propTypes = {
   showModalBeer: PropTypes.func,
   removeFavouriteBeer: PropTypes.func,
   removeModalBeer: PropTypes.func,
-  changeBeerInCart: PropTypes.func,
-  changeShowMode: PropTypes.func,
+  addBeerToCart: PropTypes.func,
   addFavouriteBeer: PropTypes.func,
   favouriteBeers: PropTypes.instanceOf(Array),
   beerInCart: PropTypes.instanceOf(Array)
@@ -97,8 +85,7 @@ Home.propTypes = {
 const mapStateToProps = state => ({
   favouriteBeers: state.beer.favouriteBeers,
   popupBeer: state.beer.popupBeer,
-  beerInCart: state.beer.beerInCart,
-  showMode: state.beer.showMode
+  beerInCart: state.beer.beerInCart
 });
 
 const mapDispatchProps = dispatch => ({
@@ -106,8 +93,7 @@ const mapDispatchProps = dispatch => ({
   removeFavouriteBeer: beerId => dispatch(removeFavouriteBeer(beerId)),
   showPopupBeer: beer => dispatch(showModalBeer(beer)),
   removePopupBeer: () => dispatch(removeModalBeer()),
-  changeBeerInCart: (beerId, amount) => dispatch(changeBeerInCart(beerId, amount)),
-  changeShowMode: mode => dispatch(changeShowMode(mode))
+  addBeerToCart: (beerId, amount) => dispatch(addBeerToCart(beerId, amount))
 });
 
 export default connect(

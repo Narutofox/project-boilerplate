@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Navigation } from 'ivanciceksstorybook/dist';
 
 export default class BeerNavigation extends React.Component {
+
   render() {
     return (
       <Navigation links={
@@ -11,7 +12,7 @@ export default class BeerNavigation extends React.Component {
               {
                 path: '/',
                 active: true,
-                content: 'Home'
+                content: `All beers (${this.props.beersInTotal})`
               },
                 {
                   path: 'Cart',
@@ -32,10 +33,12 @@ export default class BeerNavigation extends React.Component {
 
 BeerNavigation.defaultProps = {
   beersInCart: 0,
+  beersInTotal: 0,
   favouriteBeers: []
 };
 
 BeerNavigation.propTypes = {
   beersInCart: PropTypes.number,
+  beersInTotal: PropTypes.number,
   favouriteBeers: PropTypes.instanceOf(Array)
 };
