@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Navigation } from 'ivanciceksstorybook/dist';
 
 export default class BeerNavigation extends React.Component {
-
   render() {
     return (
       <Navigation links={

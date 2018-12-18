@@ -15,7 +15,7 @@ export default class BeerCards extends React.Component {
           onInfoClick={() => this.props.showModalBeer(beer)}
           onStarClick={() => { this.props.addOrRemoveBeerFavorite(beer.id); }}
           onPlusClick={() => { this.props.addBeerToCart(beer.id); }}
-          isFavourite={this.props.favouriteBeers.includes(beer.id) === true}
+          isFavourite={this.props.favouriteBeers.includes(beer.id)}
         />))
     );
   }
