@@ -7,7 +7,8 @@ export const beerReducer = (state = {
     this._favouriteBeers = value;
   },
   popupBeer: {},
-  beerInCart: []
+  beerInCart: [],
+  showMode: 'All'
 }, action) => {
   switch (action.type) {
     case 'addFavouriteBeer':
@@ -30,7 +31,7 @@ export const beerReducer = (state = {
         ...state,
         popupBeer: {}
       };
-    case 'addBeerToCart': {
+    case 'setBeerInCart': {
       const currentBeersInCart = state.beerInCart.slice();
       const beerIndex = currentBeersInCart.map(e => e.beerId).indexOf(action.beerId);
 
@@ -38,7 +39,7 @@ export const beerReducer = (state = {
         if (beerIndex < 0 && action.amount > 0) {
           currentBeersInCart.push({ beerId: action.beerId, amount: action.amount });
         } else {
-          currentBeersInCart[beerIndex].amount += action.amount;
+          currentBeersInCart[beerIndex].amount = action.amount;
           if (currentBeersInCart[beerIndex].amount <= 0) {
             currentBeersInCart.splice(beerIndex, 1);
           }
@@ -50,6 +51,11 @@ export const beerReducer = (state = {
         beerInCart: currentBeersInCart
       };
     }
+    case 'changeBeersToShow':
+      return {
+        ...state,
+        showMode: action.beerType
+      };
     case 'removeBeerFromCart':
       return {
         ...state,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, NotFound } from '../index';
+import { Home, NotFound, Favourite } from '../index';
 
 export default class App extends React.Component {
   render() {

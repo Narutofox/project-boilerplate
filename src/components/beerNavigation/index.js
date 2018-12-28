@@ -11,17 +11,12 @@ export default class BeerNavigation extends React.Component {
               {
                 path: '/',
                 active: true,
-                content: `All beers (${this.props.beersInTotal})`
+                content: 'Home'
               },
                 {
                   path: 'Cart',
                   active: false,
                   content: `My Cart (${this.props.beersInCart})`
-                },
-                {
-                  path: 'FavouriteBeers',
-                  active: false,
-                  content: `Favourite beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`
                 }
             ]
         }
@@ -31,13 +26,9 @@ export default class BeerNavigation extends React.Component {
 }
 
 BeerNavigation.defaultProps = {
-  beersInCart: 0,
-  beersInTotal: 0,
-  favouriteBeers: []
+  beersInCart: 0
 };
 
 BeerNavigation.propTypes = {
-  beersInCart: PropTypes.number,
-  beersInTotal: PropTypes.number,
-  favouriteBeers: PropTypes.instanceOf(Array)
+  beersInCart: PropTypes.number
 };
