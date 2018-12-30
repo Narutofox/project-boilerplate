@@ -6,7 +6,7 @@ export const beerReducer = (state = {
   set favouriteBeers(value) {
     this._favouriteBeers = value;
   },
-  popupBeer: {},
+  modalBeer: null,
   beerInCart: [],
   showMode: 'All'
 }, action) => {
@@ -24,12 +24,12 @@ export const beerReducer = (state = {
     case 'showModalBeer':
       return {
         ...state,
-        popupBeer: action.value
+        modalBeer: action.value
       };
     case 'removeModalBeer':
       return {
         ...state,
-        popupBeer: {}
+        modalBeer: null
       };
     case 'setBeerInCart': {
       const currentBeersInCart = state.beerInCart.slice();

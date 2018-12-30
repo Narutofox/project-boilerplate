@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Main, Footer, Button } from 'ivanciceksstorybook/dist';
+import { Header, Main, Footer, Button, BeerModal } from 'ivanciceksstorybook/dist';
 import beers from '../../../assets/beers';
 import BeerCards from '../../components/beerCards';
 import { addFavouriteBeer, removeFavouriteBeer, showModalBeer, removeModalBeer, setBeerInCart, changeBeersToShow } from '../../components/beerCards/actions';
@@ -18,8 +18,8 @@ class Home extends React.Component {
     this.changeBeersToShow = this.changeBeersToShow.bind(this);
   }
 
-  setBeerInCart(beerId) {
-    this.props.setBeerInCart(beerId, 1);
+  setBeerInCart(beerId,amount = 1) {
+    this.props.setBeerInCart(beerId, amount);
   }
 
   markBeerAsFavorite(beerId) {
@@ -46,12 +46,23 @@ class Home extends React.Component {
     if (this.props.showMode === 'Favourite' && this.props.favouriteBeers !== undefined) {
       beersToDisplay = beers.filter((beer) => { return this.props.favouriteBeers.includes(beer.id); });
     }
-
+    let beerModal = null;
+    if(this.props.modalBeer !== null){
+      beerModal = ( <BeerModal show={true} 
+        imgUrl={this.props.modalBeer.image_url}
+        beerName={this.props.modalBeer.name}
+        beerDescription={this.props.modalBeer.description}
+        beerId = {this.props.modalBeer.id} 
+        onClose={this.removeModalBeer} 
+        addBeerToCart={this.setBeerInCart} 
+        markBeerAsFavorite={this.addOrRemoveBeerFavorite}>
+        </BeerModal>)
+    }
     const cards = (<BeerCards beers={beersToDisplay}
       addOrRemoveBeerFavorite={this.addOrRemoveBeerFavorite}
       setBeerInCart={this.setBeerInCart}
       favouriteBeers={this.props.favouriteBeers}
-      setPopupBeer={this.showModalBeer}
+      showModalBeer={this.showModalBeer}
     />);
     const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
     const div = (
@@ -69,6 +80,7 @@ class Home extends React.Component {
           {cards}
         </Main>
         <Footer><div>&copy; Ivan Čiček - 2018</div></Footer>
+        {beerModal}
       </div>
     );
 
@@ -103,7 +115,7 @@ Home.propTypes = {
 
 const mapStateToProps = state => ({
   favouriteBeers: state.beer.favouriteBeers,
-  popupBeer: state.beer.popupBeer,
+  modalBeer: state.beer.modalBeer,
   beerInCart: state.beer.beerInCart,
   showMode: state.beer.showMode
 });
@@ -111,8 +123,8 @@ const mapStateToProps = state => ({
 const mapDispatchProps = dispatch => ({
   addFavouriteBeer: beerId => dispatch(addFavouriteBeer(beerId)),
   removeFavouriteBeer: beerId => dispatch(removeFavouriteBeer(beerId)),
-  showPopupBeer: beer => dispatch(showModalBeer(beer)),
-  removePopupBeer: () => dispatch(removeModalBeer()),
+  showModalBeer : beer => dispatch(showModalBeer(beer)),
+  removeModalBeer: () => dispatch(removeModalBeer()),
   setBeerInCart: (beerId, amount) => dispatch(setBeerInCart(beerId, amount)),
   changeBeersToShow: beerType => dispatch(changeBeersToShow(beerType))
 });
