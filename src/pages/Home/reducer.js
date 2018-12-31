@@ -1,13 +1,27 @@
 export const beerReducer = (state = {
   _favouriteBeers: [],
   get favouriteBeers() {
+    if (sessionStorage.getItem('favouriteBeers') !== null) {
+      return sessionStorage.getItem('favouriteBeers');
+    }
     return this._favouriteBeers;
   },
   set favouriteBeers(value) {
     this._favouriteBeers = value;
+    sessionStorage.setItem('favouriteBeers', value);
   },
   modalBeer: null,
-  beerInCart: [],
+  _beerInCart: [],
+  get beerInCart() {
+    if (sessionStorage.getItem('beerInCart') !== null) {
+      return sessionStorage.getItem('beerInCart');
+    }
+    return this._beerInCart;
+  },
+  set beerInCart(value) {
+    this._beerInCart = value;
+    sessionStorage.setItem('beerInCart', value);
+  },
   showMode: 'All'
 }, action) => {
   switch (action.type) {
@@ -57,7 +71,7 @@ export const beerReducer = (state = {
 
       if (action.quantity !== 0) {
         if (beerIndex < 0 && action.quantity > 0) {
-          currentBeersInCart.push({ beerId: action.beerId, amount: action.quantity });
+          currentBeersInCart.push({ beerId: action.beerId, quantity: action.quantity });
         } else {
           currentBeersInCart[beerIndex].quantity += action.quantity;
           if (currentBeersInCart[beerIndex].quantity <= 0) {

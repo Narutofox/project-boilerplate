@@ -64,7 +64,7 @@ class Home extends React.Component {
       favouriteBeers={this.props.favouriteBeers}
       showModalBeer={this.showModalBeer}
     />);
-    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
+    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.quantity, 0);
     const div = (
       <div>
         <Header text="Duff Bears" imgUrl={logo} />

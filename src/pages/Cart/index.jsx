@@ -43,7 +43,7 @@ class Cart extends React.Component {
     const dataSet = beers.map(beer =>
       this.props.beerInCart.map(beerCart => this.beerToDataSet(beer, beerCart)));
 
-    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
+    const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.quantity, 0);
     const div = (
       <div>
         <Header text="Duff Bears" imgUrl={logo} />
