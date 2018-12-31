@@ -20,10 +20,16 @@ export const removeModalBeer = () => ({
 });
 
 
-export const setBeerInCart = (beerId, amount) => ({
+export const addBeerToCart = (beerId, quantity) => ({
+  type: 'addBeerToCart',
+  beerId,
+  quantity
+});
+
+export const setBeerInCart = (beerId, quantity) => ({
   type: 'setBeerInCart',
   beerId,
-  amount
+  quantity
 });
 
 export const removeBeerFromCart = beerId => ({

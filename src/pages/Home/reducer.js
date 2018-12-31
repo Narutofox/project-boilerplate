@@ -35,12 +35,32 @@ export const beerReducer = (state = {
       const currentBeersInCart = state.beerInCart.slice();
       const beerIndex = currentBeersInCart.map(e => e.beerId).indexOf(action.beerId);
 
-      if (action.amount !== 0) {
-        if (beerIndex < 0 && action.amount > 0) {
-          currentBeersInCart.push({ beerId: action.beerId, amount: action.amount });
+      if (action.quantity !== 0) {
+        if (beerIndex < 0 && action.quantity > 0) {
+          currentBeersInCart.push({ beerId: action.beerId, quantity: action.quantity });
         } else {
-          currentBeersInCart[beerIndex].amount = action.amount;
-          if (currentBeersInCart[beerIndex].amount <= 0) {
+          currentBeersInCart[beerIndex].quantity = action.quantity;
+          if (currentBeersInCart[beerIndex].quantity <= 0) {
+            currentBeersInCart.splice(beerIndex, 1);
+          }
+        }
+      }
+
+      return {
+        ...state,
+        beerInCart: currentBeersInCart
+      };
+    }
+    case 'addBeerToCart': {
+      const currentBeersInCart = state.beerInCart.slice();
+      const beerIndex = currentBeersInCart.map(e => e.beerId).indexOf(action.beerId);
+
+      if (action.quantity !== 0) {
+        if (beerIndex < 0 && action.quantity > 0) {
+          currentBeersInCart.push({ beerId: action.beerId, amount: action.quantity });
+        } else {
+          currentBeersInCart[beerIndex].quantity += action.quantity;
+          if (currentBeersInCart[beerIndex].quantity <= 0) {
             currentBeersInCart.splice(beerIndex, 1);
           }
         }

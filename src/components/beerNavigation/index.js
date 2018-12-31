@@ -10,12 +10,12 @@ export default class BeerNavigation extends React.Component {
             [
               {
                 path: '/',
-                active: true,
+                active: this.props.activeContent === 'Home',
                 content: 'Home'
               },
                 {
                   path: 'Cart',
-                  active: false,
+                  active: this.props.activeContent === 'Cart',
                   content: `My Cart (${this.props.beersInCart})`
                 }
             ]
@@ -26,9 +26,11 @@ export default class BeerNavigation extends React.Component {
 }
 
 BeerNavigation.defaultProps = {
-  beersInCart: 0
+  beersInCart: 0,
+  activeContent: 'Home'
 };
 
 BeerNavigation.propTypes = {
-  beersInCart: PropTypes.number
+  beersInCart: PropTypes.number,
+  activeContent: PropTypes.string
 };
