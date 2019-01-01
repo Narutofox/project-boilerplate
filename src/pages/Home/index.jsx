@@ -73,7 +73,7 @@ class Home extends React.Component {
           <div>
             <Button onClick={() => this.changeBeersToShow('All')} text={`Show all beers (${beers.length})`} />
 
-            <Button onClick={() => this.changeBeersToShow('Favourite')} text={`Show Favourites beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`} />
+            <Button onClick={() => this.changeBeersToShow('Favourite')} text={`Show favourite beers (${this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length})`} />
           </div>
           {cards}
         </Main>

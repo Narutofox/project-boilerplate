@@ -1,40 +1,46 @@
 export const beerReducer = (state = {
   _favouriteBeers: [],
   get favouriteBeers() {
-    if (sessionStorage.getItem('favouriteBeers') !== null) {
-      return sessionStorage.getItem('favouriteBeers');
+    if (sessionStorage.getItem('favouriteBeers') !== null && sessionStorage.getItem('favouriteBeers') !== '') {
+      const favBeers = JSON.parse(sessionStorage.getItem('favouriteBeers'));
+      return Array.from(favBeers);
     }
     return this._favouriteBeers;
   },
   set favouriteBeers(value) {
     this._favouriteBeers = value;
-    sessionStorage.setItem('favouriteBeers', value);
   },
   modalBeer: null,
   _beerInCart: [],
   get beerInCart() {
-    if (sessionStorage.getItem('beerInCart') !== null) {
-      return sessionStorage.getItem('beerInCart');
+    if (sessionStorage.getItem('beerInCart') !== null && sessionStorage.getItem('beerInCart') !== '') {
+      const beersInCart = JSON.parse(sessionStorage.getItem('beerInCart'));
+      return Array.from(beersInCart);
     }
     return this._beerInCart;
   },
   set beerInCart(value) {
     this._beerInCart = value;
-    sessionStorage.setItem('beerInCart', value);
   },
   showMode: 'All'
 }, action) => {
   switch (action.type) {
-    case 'addFavouriteBeer':
+    case 'addFavouriteBeer': {
+      const favBeers = state.favouriteBeers.concat(action.value);
+      sessionStorage.setItem('favouriteBeers', JSON.stringify(favBeers));
       return {
         ...state,
-        favouriteBeers: state.favouriteBeers.concat(action.value)
+        favouriteBeers: favBeers
       };
-    case 'removeFavouriteBeer':
+    }
+    case 'removeFavouriteBeer': {
+      const favBeers = state.favouriteBeers.filter(element => element !== action.value);
+      sessionStorage.setItem('favouriteBeers', JSON.stringify(favBeers));
       return {
         ...state,
-        favouriteBeers: state.favouriteBeers.filter(element => element !== action.value)
+        favouriteBeers: favBeers
       };
+    }
     case 'showModalBeer':
       return {
         ...state,
@@ -59,7 +65,7 @@ export const beerReducer = (state = {
           }
         }
       }
-
+      sessionStorage.setItem('beerInCart', JSON.stringify(currentBeersInCart));
       return {
         ...state,
         beerInCart: currentBeersInCart
@@ -79,7 +85,7 @@ export const beerReducer = (state = {
           }
         }
       }
-
+      sessionStorage.setItem('beerInCart', JSON.stringify(currentBeersInCart));
       return {
         ...state,
         beerInCart: currentBeersInCart
@@ -90,11 +96,14 @@ export const beerReducer = (state = {
         ...state,
         showMode: action.beerType
       };
-    case 'removeBeerFromCart':
+    case 'removeBeerFromCart': {
+      const currentBeersInCart = state.beerInCart.filter(element => element.beerId !== action.beerId);
+      sessionStorage.setItem('beerInCart', JSON.stringify(currentBeersInCart));
       return {
         ...state,
-        beerInCart: state.beerInCart.filter(element => element.beerId !== action.beerId)
+        beerInCart: currentBeersInCart
       };
+    }
     default:
       return state;
   }
