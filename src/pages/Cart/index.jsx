@@ -52,7 +52,7 @@ class Cart extends React.Component {
             inputPattern: '[0-9]*',
             inputChange: this.setBeerInCartFunc.bind(this, beer.id)
           },
-          { actions: [{ ImageUrl: close, OnClick: this.removeBeerFromCart(beer.id) }] }
+          { actions: [{ ImageUrl: close, OnClick: () => this.removeBeerFromCart(beer.id) }] }
         ]
       );
     }

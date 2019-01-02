@@ -9,6 +9,7 @@ export const beerReducer = (state = {
   },
   set favouriteBeers(value) {
     this._favouriteBeers = value;
+    sessionStorage.setItem('favouriteBeers', JSON.stringify(value));
   },
   modalBeer: null,
   _beerInCart: [],
@@ -21,6 +22,7 @@ export const beerReducer = (state = {
   },
   set beerInCart(value) {
     this._beerInCart = value;
+    sessionStorage.setItem('beerInCart', JSON.stringify(value));
   },
   showMode: 'All'
 }, action) => {
@@ -55,11 +57,12 @@ export const beerReducer = (state = {
       const currentBeersInCart = state.beerInCart.slice();
       const beerIndex = currentBeersInCart.map(e => e.beerId).indexOf(action.beerId);
 
-      if (action.quantity !== 0) {
+      // eslint-disable-next-line no-restricted-globals
+      if (!isNaN(action.quantity) && action.quantity !== 0) {
         if (beerIndex < 0 && action.quantity > 0) {
-          currentBeersInCart.push({ beerId: action.beerId, quantity: action.quantity });
+          currentBeersInCart.push({ beerId: action.beerId, quantity: Number(action.quantity) });
         } else {
-          currentBeersInCart[beerIndex].quantity = action.quantity;
+          currentBeersInCart[beerIndex].quantity = Number(action.quantity);
           if (currentBeersInCart[beerIndex].quantity <= 0) {
             currentBeersInCart.splice(beerIndex, 1);
           }
@@ -75,11 +78,12 @@ export const beerReducer = (state = {
       const currentBeersInCart = state.beerInCart.slice();
       const beerIndex = currentBeersInCart.map(e => e.beerId).indexOf(action.beerId);
 
-      if (action.quantity !== 0) {
+      // eslint-disable-next-line no-restricted-globals
+      if (!isNaN(action.quantity) && action.quantity !== 0) {
         if (beerIndex < 0 && action.quantity > 0) {
-          currentBeersInCart.push({ beerId: action.beerId, quantity: action.quantity });
+          currentBeersInCart.push({ beerId: action.beerId, quantity: Number(action.quantity) });
         } else {
-          currentBeersInCart[beerIndex].quantity += action.quantity;
+          currentBeersInCart[beerIndex].quantity += Number(action.quantity);
           if (currentBeersInCart[beerIndex].quantity <= 0) {
             currentBeersInCart.splice(beerIndex, 1);
           }
@@ -97,6 +101,7 @@ export const beerReducer = (state = {
         showMode: action.beerType
       };
     case 'removeBeerFromCart': {
+      // eslint-disable-next-line max-len
       const currentBeersInCart = state.beerInCart.filter(element => element.beerId !== action.beerId);
       sessionStorage.setItem('beerInCart', JSON.stringify(currentBeersInCart));
       return {

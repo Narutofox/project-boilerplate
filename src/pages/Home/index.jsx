@@ -46,8 +46,9 @@ class Home extends React.Component {
     if (this.props.showMode === 'Favourite' && this.props.favouriteBeers !== undefined) {
       beersToDisplay = beers.filter(beer => this.props.favouriteBeers.includes(beer.id));
     }
-    let beerModal = null;
+    let beerModal = null;   
     if (this.props.modalBeer !== null) {
+      const isFavorite = this.props.favouriteBeers.includes(this.props.modalBeer.id);
       beerModal = (<BeerModal show
         imgUrl={this.props.modalBeer.image_url}
         beerName={this.props.modalBeer.name}
@@ -56,6 +57,7 @@ class Home extends React.Component {
         onClose={this.removeModalBeer}
         addBeerToCart={this.addBeerToCart}
         markBeerAsFavorite={this.addOrRemoveBeerFavorite}
+        isFavorite={isFavorite}
       />);
     }
     const cards = (<BeerCards beers={beersToDisplay}
