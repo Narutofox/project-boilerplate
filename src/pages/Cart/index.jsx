@@ -30,15 +30,13 @@ class Cart extends React.Component {
   }
 
   // eslint-disable-next-line consistent-return
-  beerToDataSet(beer) {
+  beerToDataSet(beerInCart) {
     if (
-      beer !== null &&
-        beer !== undefined &&
-        this.props.beerInCart !== null &&
-        this.props.beerInCart !== undefined &&
-        this.props.beerInCart.some(element => element.beerId === beer.id)
+      beerInCart !== null &&
+      beerInCart !== undefined &&
+        beers.some(element => element.id === beerInCart.beerId)
     ) {
-      const beerInCart = this.props.beerInCart.find(element => element.beerId === beer.id);
+      const beer = beers.find(element => element.id === beerInCart.beerId);
       return (
         [
           {
@@ -67,8 +65,10 @@ class Cart extends React.Component {
 
   render() {
     const headers = ['', 'Name', 'Quantity'];
-    const dataSet = beers.map(beer =>
-      this.beerToDataSet(beer));
+    const dataSet = this.props.beerInCart.map(beerInCart =>
+      this.beerToDataSet(beerInCart));
+    /*const dataSet = beers.map(beer =>
+      this.beerToDataSet(beer));*/
 
     const beersInCart = this.props.beerInCart.reduce((a, b) => a + b.quantity, 0);
     const div = (
